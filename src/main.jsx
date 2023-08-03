@@ -11,27 +11,30 @@ import store from "./app/store";
 
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { SnackbarProvider } from "notistack";
+import { BrowserRouter } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#000e35",
+      main: "#2e7d32",
     },
     secondary: {
-      main: "#f50057",
+      main: "#d32f2f",
     },
   },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <CssBaseline />
-    <ThemeProvider theme={theme}>
-      <SnackbarProvider>
-        <Provider store={store}>
+    <BrowserRouter>
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider>
+          <Provider store={store}>
             <App />
-        </Provider>
-      </SnackbarProvider>
-    </ThemeProvider>
+          </Provider>
+        </SnackbarProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

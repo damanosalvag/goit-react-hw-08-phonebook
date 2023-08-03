@@ -97,7 +97,7 @@ export const ContactForm = () => {
         fullWidth
         type="submit"
         variant="contained"
-        color="success"
+        color="primary"
         size="medium"
         startIcon={<PersonAddAlt1Icon />}
       >
