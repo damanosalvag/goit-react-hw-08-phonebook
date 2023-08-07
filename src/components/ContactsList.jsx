@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { operations } from "../app/operations";
+import { operations } from "../app/contacts/operations";
 import ListSkeleton from "./Skeleton";
 
 import {
@@ -39,38 +39,40 @@ export const ContactList = () => {
   return (
     <List>
       {!isLoading
-        ? filteredContacts.map((contact) => (
-            <ListItem
-              key={contact.id}
-              disableGutters
-              secondaryAction={
-                <Tooltip title="Delete" placement="right">
-                  <IconButton onClick={() => handleDelete(contact.id)}>
-                    <DeleteIcon color="error" />
-                  </IconButton>
-                </Tooltip>
-              }
-            >
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={
-                  <Typography variant="h6" align="left">
-                    {`${contact.name}`}
-                  </Typography>
+        ? filteredContacts
+            .map((contact) => (
+              <ListItem
+                key={contact.id}
+                disableGutters
+                secondaryAction={
+                  <Tooltip title="Delete" placement="right">
+                    <IconButton onClick={() => handleDelete(contact.id)}>
+                      <DeleteIcon color="error" />
+                    </IconButton>
+                  </Tooltip>
                 }
-              />
-              <ListItemText
-                primary={
-                  <Typography variant="string" align="left">
-                    {`${contact.phone}`}
-                  </Typography>
-                }
-                sx={{ textAlign:'right', pr: 2 }}
-              />
-            </ListItem>
-          )).reverse()
+              >
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Typography variant="h6" align="left">
+                      {`${contact.name}`}
+                    </Typography>
+                  }
+                />
+                <ListItemText
+                  primary={
+                    <Typography variant="string" align="left">
+                      {`${contact.phone}`}
+                    </Typography>
+                  }
+                  sx={{ textAlign: "right", pr: 2 }}
+                />
+              </ListItem>
+            ))
+            .reverse()
         : skeletonList()}
     </List>
   );

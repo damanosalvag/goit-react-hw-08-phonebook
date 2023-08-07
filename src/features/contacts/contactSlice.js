@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { operations } from "../../app/operations";
+import { operations } from "../../app/contacts/operations";
 
 const initialState = {
-  list: [],
+  list: [{name: null, phone: null}],
   filter: "",
   isLoading: false,
   modificator: 0,

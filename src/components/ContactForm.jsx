@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { operations } from "../app/operations";
+import { operations } from "../app/contacts/operations";
 import { Button, TextField, Box } from "@mui/material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
@@ -68,7 +68,12 @@ export const ContactForm = () => {
     }
   };
   return (
-    <Box component="form" onSubmit={handleSubmit} autoComplete="off">
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      autoComplete="off"
+      sx={{ mt: 2 }}
+    >
       <TextField
         sx={{ mb: 2 }}
         fullWidth

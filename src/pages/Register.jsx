@@ -10,14 +10,19 @@ import {
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link as RouterLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { operations } from "../app/auth/operations";
 const Register = () => {
+  const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const credentials = {
+      name: data.get("firstName") + " " + data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+    dispatch(operations.signUp(credentials));
   };
 
   return (
