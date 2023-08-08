@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { operations } from "../app/contacts/operations";
 import { Button, TextField, Box } from "@mui/material";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
 export const ContactForm = () => {
+  const token = useSelector((state) => state.auth.token);
   const [contact, setContact] = useState({
     name: "",
-    phone: "",
+    number: "",
   });
   const [error, setError] = useState({
     errorName: false,
@@ -16,13 +17,13 @@ export const ContactForm = () => {
     complete: false,
   });
   const handleValidation = (contact) => {
-    const { name, phone } = contact;
+    const { name, number } = contact;
     const regex = {
       name: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+ [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+$/,
-      phone: /^\+\d{1,4}[-\s]\d{3,12}$/,
+      number: /^\+\d{1,4}[-\s]\d{3,12}$/,
     };
     if (regex.name.test(name)) {
-      if (regex.phone.test(phone)) {
+      if (regex.number.test(number)) {
         setError({
           errorName: false,
           errorPhone: false,
@@ -58,12 +59,13 @@ export const ContactForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const dataContact = { contact: contact, token: token}
     if (error.complete) {
-      await dispatch(operations.addContact(contact));
-      dispatch(operations.getContacts());
+      await dispatch(operations.addContact(dataContact));
+      dispatch(operations.getContacts(token));
       setContact({
         name: "",
-        phone: "",
+        number: "",
       });
     }
   };
@@ -94,9 +96,9 @@ export const ContactForm = () => {
         helperText={error.errorPhone && error.message}
         id="outlined-error-helper-text"
         label="Phone Numer"
-        name="phone"
+        name="number"
         onChange={handleChange}
-        value={contact.phone}
+        value={contact.number}
       ></TextField>
       <Button
         fullWidth

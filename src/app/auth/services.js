@@ -19,21 +19,18 @@ export const auth = {
       setAuthHeader(response.data.token);
       return res.data;
     });
-    console.log(response);
     return response;
   },
   logIn: async (userData) => {
     const url = `/users/login`;
     const response = await apiInstance.post(url, userData);
     setAuthHeader(response.data.token);
-    console.log(response);
     return response.data;
   },
   logOut: async () => {
     const url = `/users/logout`;
     const response = await apiInstance.post(url).then((res) => res.data);
     clearAuthHeader();
-    console.log(response);
     return response;
   },
   currentUser: async () => {

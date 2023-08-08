@@ -1,8 +1,9 @@
 import { Routes, Route, Link, Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Container, Typography } from "@mui/material";
-import { operations } from "./app/contacts/operations";
+import { operations as contactsOperations } from "./app/contacts/operations";
+import { operations as authOperations } from "./app/auth/operations";
 import Contacts from "./pages/Contacts";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -10,11 +11,13 @@ import { RestrictedRoute } from "./components/RestrictedRoute";
 import { PrivateRoute } from "./components/PrivateRoute";
 
 function App() {
+  const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(operations.getContacts());
-  }, [dispatch]);
+    dispatch(contactsOperations.getContacts(token));
+    dispatch(authOperations.currentUser());
+  }, [dispatch, token]);
 
   return (
     <Container maxWidth="sm">

@@ -1,31 +1,35 @@
 import axios from "axios";
+
+const getAuthHeader = (token) => {
+  apiInstance.defaults.headers.common["Authorization"] = token;
+};
+
 const apiInstance = axios.create({
-  baseURL: "https://64c4138c67cfdca3b6609bd7.mockapi.io",
+  baseURL: "https://connections-api.herokuapp.com",
 });
 
 export const api = {
-  getContacts: async () => {
+  getContacts: async (token = "") => {
     const url = `/contacts`;
-    const response = await apiInstance
-      .get(url)
-      .then((res) => res.data)
-      .catch((err) => err);
+    getAuthHeader(token)
+    const response = await apiInstance.get(url).then((res) => res.data);
+    console.log(response)
     return response;
   },
-  addContact: async (contactData) => {
+  addContact: async ({ contact, token}) => {
     const url = `/contacts`;
+    getAuthHeader(token);
     const response = await apiInstance
-      .post(url, contactData)
+      .post(url, contact)
       .then((res) => res.data)
-      .catch((err) => err);
     return response;
   },
-  deleteContact: async (id) => {
+  deleteContact: async ({id, token}) => {
     const url = `/contacts/${id}`;
+    getAuthHeader(token);
     const response = await apiInstance
       .delete(url)
       .then((res) => res.data)
-      .catch((err) => err);
     return response;
   },
 };

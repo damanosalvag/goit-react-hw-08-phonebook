@@ -15,6 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import PersonIcon from "@mui/icons-material/Person";
 
 export const ContactList = () => {
+  const token = useSelector((state) => state.auth.token);
   const contacts = useSelector((state) => state.contacts.list);
   const query = useSelector((state) => state.contacts.filter);
   const isLoading = useSelector((state) => state.contacts.isLoading);
@@ -22,12 +23,13 @@ export const ContactList = () => {
   const dispatch = useDispatch();
 
   const handleDelete = async (id) => {
-    await dispatch(operations.deleteContact(id));
-    dispatch(operations.getContacts());
+    const dataDelete = { id: id, token: token}
+    await dispatch(operations.deleteContact(dataDelete));
+    dispatch(operations.getContacts(token));
   };
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(query.toLowerCase())
-  );
+  const filteredContacts = contacts[0] ? contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(query.toLowerCase())) : [];
+  
   const skeletonList = () => {
     let arr = [];
     const length = contacts.length == 0 ? 10 : contacts.length + modificator;
@@ -65,7 +67,7 @@ export const ContactList = () => {
                 <ListItemText
                   primary={
                     <Typography variant="string" align="left">
-                      {`${contact.phone}`}
+                      {`${contact.number}`}
                     </Typography>
                   }
                   sx={{ textAlign: "right", pr: 2 }}

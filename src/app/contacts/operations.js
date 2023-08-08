@@ -2,9 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "./services";
 
 export const operations = {
-  getContacts: createAsyncThunk("contacts/getContacts", async (_, thunkAPI) => {
+  getContacts: createAsyncThunk("contacts/getContacts", async (token, thunkAPI) => {
     try {
-      const response = await api.getContacts();
+      const response = await api.getContacts(token);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -17,7 +17,7 @@ export const operations = {
         const response = await api.addContact(contactData);
         return response;
       } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
+        return thunkAPI.rejectWithValue(error.response.data.message);
       }
     }
   ),

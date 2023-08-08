@@ -22,6 +22,7 @@ export default function MenuAppBar() {
   };
 
   const handleMenu = (event) => {
+    dispatch(operations.currentUser())
     setAnchorEl(event.currentTarget);
   };
 
