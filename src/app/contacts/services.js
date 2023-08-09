@@ -13,7 +13,6 @@ export const api = {
     const url = `/contacts`;
     getAuthHeader(token)
     const response = await apiInstance.get(url).then((res) => res.data);
-    console.log(response)
     return response;
   },
   addContact: async ({ contact, token}) => {

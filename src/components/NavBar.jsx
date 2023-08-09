@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import { useSelector, useDispatch } from "react-redux";
 import { operations } from "../app/auth/operations";
@@ -22,7 +23,7 @@ export default function MenuAppBar() {
   };
 
   const handleMenu = (event) => {
-    dispatch(operations.currentUser())
+    dispatch(operations.currentUser());
     setAnchorEl(event.currentTarget);
   };
 
@@ -65,8 +66,17 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>{name}</MenuItem>
-                <MenuItem onClick={handleChange}>
+                <MenuItem
+                  onClick={handleChange}
+                  sx={{
+                    color: "red",
+                    display: "flex",
+                    justifyContent: "start",
+                    gap: "6px",
+                  }}
+                >
                   Logout
+                  <LogoutIcon />
                 </MenuItem>
               </Menu>
             </div>
